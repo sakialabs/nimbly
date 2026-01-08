@@ -65,8 +65,32 @@ async def request_magic_link(
     db: Session = Depends(get_db)
 ):
     """
-    Request a magic link for authentication.
-    In development, the magic link is logged to console instead of emailed.
+    Request a magic link for passwordless authentication.
+    
+    In development mode, the magic link is logged to the console instead of being emailed.
+    The link expires after 15 minutes (900 seconds).
+    
+    **Request Body:**
+    - email: Valid email address
+    
+    **Response:**
+    - message: Confirmation message
+    - expires_in: Token expiry time in seconds
+    
+    **Example:**
+    ```json
+    {
+        "email": "user@example.com"
+    }
+    ```
+    
+    **Response Example:**
+    ```json
+    {
+        "message": "Magic link sent to user@example.com",
+        "expires_in": 900
+    }
+    ```
     """
     email = request.email
     request_id = str(uuid.uuid4())[:8]
@@ -92,7 +116,40 @@ async def verify_magic_link(
     db: Session = Depends(get_db)
 ):
     """
-    Verify magic link token and create or authenticate user session.
+    Verify a magic link token and create or authenticate a user session.
+    
+    This endpoint validates the magic link token and returns a long-lived session token
+    that can be used for subsequent API requests.
+    
+    **Query Parameters:**
+    - token: The magic link token from the email/console
+    
+    **Response:**
+    - user_id: UUID of the user
+    - email: User's email address
+    - session_token: JWT token for API authentication (valid for 30 days)
+    
+    **Errors:**
+    - 401: Invalid or expired token
+    
+    **Example:**
+    ```
+    GET /api/auth/verify?token=eyJhbGc...
+    ```
+    
+    **Response Example:**
+    ```json
+    {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "email": "user@example.com",
+        "session_token": "eyJhbGc..."
+    }
+    ```
+    
+    Use the session_token in subsequent requests:
+    ```
+    Authorization: Bearer <session_token>
+    ```
     """
     request_id = str(uuid.uuid4())[:8]
     

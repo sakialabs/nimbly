@@ -42,6 +42,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Task 11:** Logging infrastructure ✅
 - **Task 12:** Docker and local development setup ✅
 - **Task 13:** Database seed script ✅
+- **Task 14:** Integration tests ✅
+- **Task 15:** API documentation ✅
+- **Task 16:** Property-based tests ✅
+- **Task 17:** Performance optimization ✅
 
 ### Backend Features Complete
 - Magic link authentication with console logging in dev mode
@@ -72,6 +76,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced .env.example with comments
 - All environment variables documented
 
+### Testing
+- Comprehensive integration tests for all workflows
+- Property-based tests with Hypothesis (100+ iterations per test)
+- Tests for authentication flow, receipt upload/parsing, and insights
+- Multi-user isolation tests
+- Authorization enforcement tests
+- Predictive language detection tests
+- Referential integrity tests
+- Normalization consistency tests
+- Test coverage with pytest-cov
+
 ### Documentation
 - Requirements document with MUST/SHOULD/COULD prioritization
 - Design document with 29 correctness properties for property-based testing
@@ -79,7 +94,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tone guide with examples of Savvy's voice
 - Decisions document explaining key tradeoffs
 - Comprehensive README with quick start guide
-- API documentation auto-generated via FastAPI
+- API documentation auto-generated via FastAPI with enhanced docstrings
+- TESTING.md guide for contributors
 
 ## [0.0.0] - 2026-01-07
 

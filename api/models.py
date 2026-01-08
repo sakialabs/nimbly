@@ -94,7 +94,7 @@ class PriceHistory(Base):
     store = relationship("Store", back_populates="price_history")
     source_line_item = relationship("LineItem", back_populates="price_history")
     
-    # Composite index for efficient queries
+    # Composite indexes for efficient queries
     __table_args__ = (
         {'extend_existing': True}
     )
