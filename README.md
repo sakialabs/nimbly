@@ -33,17 +33,119 @@ Just the right info at the right time.
 
 ## 🚀 Quick Start
 
+### Automated Setup (Recommended)
+
+**Unix/Mac:**
 ```bash
-# Start services
-docker-compose up
-
-# Seed database (in another terminal)
-docker-compose exec api python -m api.seed
-
-# Access API at http://localhost:8000/docs
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
-See `api/README.md` for detailed setup and `docs/testing.md` for testing guide.
+**Windows:**
+```cmd
+scripts\setup.bat
+```
+
+This will automatically:
+- Check dependencies (Docker, Node.js)
+- Set up environment files
+- Build and start containers
+- Seed the database
+- Install web dependencies
+
+### Manual Setup
+
+If you prefer manual setup:
+
+```bash
+# 1. Start backend
+docker-compose up -d
+
+# 2. Seed database
+docker-compose exec api python -m api.seed
+
+# 3. Install web dependencies
+cd web && npm install
+
+# 4. Start web app
+npm run dev
+```
+
+### Access
+
+- **API:** http://localhost:8000
+- **API Docs:** http://localhost:8000/docs
+- **Web App:** http://localhost:3000 (after running `npm run dev`)
+
+See `api/README.md` for detailed backend setup and `docs/testing.md` for testing guide.
+
+---
+
+## 📁 Project Structure
+
+```
+nimbly/
+├── api/                    # FastAPI backend
+│   ├── tests/              # Backend test suite
+│   ├── auth.py             # Authentication endpoints
+│   ├── receipts.py         # Receipt endpoints
+│   ├── insights.py         # Insight generation
+│   ├── parser.py           # Receipt parsing (OCR, extraction)
+│   ├── models.py           # Database models
+│   ├── schemas.py          # Pydantic schemas
+│   ├── database.py         # Database configuration
+│   ├── config.py           # App configuration
+│   ├── utils.py            # Utility functions
+│   └── seed.py             # Database seeding
+│
+├── web/                    # Next.js web app
+│   ├── app/                # Pages and routes
+│   │   ├── page.tsx        # Home page
+│   │   ├── auth/           # Authentication
+│   │   ├── receipts/       # Receipts view
+│   │   ├── about/          # About page
+│   │   ├── savvy/          # Savvy page
+│   │   └── ...
+│   ├── components/         # React components
+│   │   ├── ui/             # Base UI components
+│   │   ├── navigation.tsx  # Navigation bar
+│   │   ├── footer.tsx      # Footer
+│   │   └── ...
+│   └── lib/                # Utilities
+│       ├── api.ts          # API client
+│       ├── auth.ts         # Auth utilities
+│       └── utils.ts        # Helper functions
+│
+├── mobile/                 # React Native mobile app
+│   ├── src/
+│   │   ├── components/     # Mobile components
+│   │   ├── theme/          # Theme configuration
+│   │   └── context/        # React context
+│   └── App.tsx             # Main app component
+│
+├── docs/                   # Documentation
+│   ├── requirements.md     # Feature requirements
+│   ├── design.md           # System design
+│   ├── tasks.md            # Implementation tasks
+│   ├── phases.md           # Development phases
+│   ├── visuals.md          # Visual design system
+│   ├── tone.md             # Voice and tone guide
+│   ├── testing.md          # Testing guide
+│   └── CHANGELOG.md        # Version history
+│
+├── scripts/                # Helper scripts
+│   ├── setup.sh/.bat       # Automated setup
+│   ├── dev.sh/.bat         # Start dev environment
+│   ├── test.sh/.bat        # Run tests
+│   └── README.md           # Scripts documentation
+│
+├── uploads/                # Receipt file storage
+├── docker-compose.yml      # Docker configuration
+├── Dockerfile              # API container definition
+├── .env.example            # Environment variables template
+├── CONTRIBUTING.md         # Contribution guidelines
+└── README.md               # This file
+```
 
 ---
 
@@ -123,7 +225,7 @@ That's Nimbly.
 
 ## 📬 Contributing
 
-If this resonates, feel free to open an issue or start a discussion.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
